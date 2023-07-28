@@ -4,16 +4,14 @@
 name: Python application
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  schedule:
+    - cron: "*/30 * * * *" # runs every half hour
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  refresh_page:
 
     runs-on: ubuntu-latest
 
