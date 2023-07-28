@@ -2,41 +2,45 @@ name: Get Sentiment and update GitHub page
 
 on:
   schedule:
-    - cron: "30 11 * * *" #runs at 11:30 utc (17:00 ist) everyday
-
+    - cron: "*/30 * * * *" # runs every half hour
+    
 jobs:
   refresh_page:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
     steps:
       - name: Access the repo
-        uses: actions/checkout@v3
-
+        uses: actions/checkout@v2 
+    
       - name: Configure Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.11.3'
-
+          python-version: '3.10' 
+      
       - name: Install necessary libraries
         run: |
-          cd main
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+          
       - name: Execute fetch-data python file
-        run: |
-          cd main
-          python fetch-data.py
+        run: python fetch-data.py
 
       - name: Execute python script to update sentiment page
-        run: |
-          cd main
-          python dashboard-generation.py
-
-      - name: save csv file
-        run: |
-          cd main
+        run: python dashboard-generation.py
+        
+      - name: Clone repo from your github.io page and commit newly generated sentiment html file
+        run: | #change all the "damianboh"s below to your username
+          git clone https://github.com/OsamaMustafa32/OsamaMustafa32.github.io.git/ 
+          cp NIFTY_500_live_sentiment.html OsamaMustafa32.github.io/NIFTY_500_live_sentiment.html 
+          cd OsamaMustafa32.github.io 
+          git add dow_jones_live_sentiment.html
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add .
-          git commit -m 'upload csv,html using GH Actions'
-          git push --force origin main
+          git commit -m 'refresh NIFTY_500_live_sentiment page'        
+        
+      - name: Push updated html to github.io page
+        uses: ad-m/github-push-action@master
+        with: 
+          github_token: ${{ secrets.TOKEN }}          
+          repository: "OsamaMustafa32/OsamaMustafa32.github.io"
+          branch: "main"          
+          directory: ./OsamaMustafa32.github.io
