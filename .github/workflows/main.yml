@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: "30 11 * * *" #runs at 11:30 utc (17:00 ist) everyday
+    - cron: "*/5 * * * *" #runs at 11:30 utc (17:00 ist) everyday
     
 jobs:
   refresh_page:
