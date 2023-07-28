@@ -98,7 +98,7 @@ st.markdown('This dashboard gives users a almost real-time comprehensive visual 
 
 # Update filters
 
-col1, col2, col3 = st.columns([3,2])
+col1, col2, col3 = st.columns(3)
 with col1:
     date_interval = st.selectbox('Pick the Date Range', ('Past 7 days', 'Past 1 Month', 'Past 2 Months', 'Full'), key='date_filter')
 with col2:
@@ -113,7 +113,7 @@ chart_area.plotly_chart(fig,height=800,use_container_width=True)
 st.markdown('The chart above depicts the real time sentiment of Stocks and Industries in the Nifty 500 Universe.')
 
 
-col_1, col_2 = st.columns(2)
+col_1, col_2 = st.columns([3,2])
 with col_1:
     st.selectbox('Type the Symbol name to get associated news: ', final_df['Symbol'], key='newsbox')
     st.dataframe(news_df)
