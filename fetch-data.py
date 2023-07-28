@@ -12,9 +12,6 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 nltk.downloader.download('vader_lexicon')
 
-
-# NIFTY URLS
-
 nifty_500_ticker_url = 'https://archives.nseindia.com/content/indices/ind_nifty500list.csv'
 nifty_500 = pd.read_csv(nifty_500_ticker_url)
 nifty_500.to_csv('./datasets/NIFTY_500.csv')
@@ -31,6 +28,13 @@ nifty_50_ticker_url = 'https://archives.nseindia.com/content/indices/ind_nifty50
 nifty_50 = pd.read_csv(nifty_50_ticker_url)
 nifty_50.to_csv('./datasets/NIFTY_50.csv')
 
+# Set universe
+universe = nifty_500
+
+# Read CSV & create a tickers df
+tickers_df = universe[['Symbol', 'Company Name']]
+tickers_list = tickers_df['Symbol']
+
 # News URL
 news_url = 'https://ticker.finology.in/company/'
 special_symbols = {
@@ -43,14 +47,11 @@ special_symbols = {
 header = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'
     }
-
 # list to store article data
 article_data = []
 
-
 # list to store tickers for which data is unavailable
 unavailable_tickers = []
-
 
 # function to fetch news and meta concurrently
 def get_url_content(ticker):
@@ -59,10 +60,8 @@ def get_url_content(ticker):
     response = requests.get(url, headers=header)
     soup = BeautifulSoup(response.content, 'lxml')
     return ticker, soup
-
-
+    
 # function to parse news data and create a df
-
 def ticker_article_fetch(i, ticker, soup):
     print('Fetching Article')
     news_links = soup.select('#newsarticles > a')
@@ -81,9 +80,6 @@ def ticker_article_fetch(i, ticker, soup):
         ticker_articles_counter += 1
     print('No of articles: {}'.format(ticker_articles_counter))
 
-
-# function to parse meta data and create a df
-
 start_time = time.time()
 # send multiple concurrent requests using concurrent.futures
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
@@ -99,15 +95,15 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
             continue
 end_time = time.time()
 
-print(unavailable_tickers)
-
 # calculate and print the time taken to send requests
 time_taken = end_time - start_time
 print("Time taken to send requests: {:.2f} seconds".format(time_taken))
 
 # create df from article_data
-articles_df = pd.DataFrame(article_data, columns=[
-                           'Ticker', 'Headline', 'Date', 'Time'])
+articles_df = pd.DataFrame(article_data, columns=['Ticker', 'Headline', 'Date', 'Time'])
+
+# create df from metadata
+ticker_meta_df = pd.read_csv('./datasets/ticker_metadata.csv')
 
 # Sentiment Analysis
 print('Performing Sentiment Analysis')
@@ -122,14 +118,11 @@ vader.lexicon = lex_dict
 
 # Perform sentiment Analysis on the Headline column of all_news_df
 # It returns a dictionary, transform it into a list
-art_scores_df = pd.DataFrame(
-    articles_df['Headline'].apply(vader.polarity_scores).to_list())
+art_scores_df = pd.DataFrame(articles_df['Headline'].apply(vader.polarity_scores).to_list())
 
 # Merge articles_df with art_scores_df
 # merging on index, hence both indices should be same
-art_scores_df = pd.merge(articles_df, art_scores_df,
-                         left_index=True, right_index=True)
+art_scores_df = pd.merge(articles_df, art_scores_df,left_index=True, right_index=True)
 
 # export article data to csv file
 art_scores_df.to_csv('./datasets/NIFTY_500_Articles.csv')
-
