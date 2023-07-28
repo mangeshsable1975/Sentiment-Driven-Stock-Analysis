@@ -98,7 +98,7 @@ st.markdown('This dashboard gives users a almost real-time comprehensive visual 
 
 # Update filters
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns([3,2)
 with col1:
     date_interval = st.selectbox('Pick the Date Range', ('Past 7 days', 'Past 1 Month', 'Past 2 Months', 'Full'), key='date_filter')
 with col2:
