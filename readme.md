@@ -1,10 +1,10 @@
-# Nifty 500 Live Sentiment Analysis Dashboard
+# Stock Market Sentiment Analysis:
+
+In 2020, India witnessed a stock market crash during the COVID-19 pandemic. Understanding sentiment's impact became crucial as fear and uncertainty drove irrational behavior. Sentiment analysis helps investors gauge emotions, make informed decisions, and complement other analyses for a comprehensive investment strategy based on risk tolerance and goals.
 
 ![app-img](./app.png)
 
 A live Sentiment Analysis Dashboard powered by python and streamlit.
 
-
-Custom finance focused lexicon dictionaries used in this project could be found [here](https://sraf.nd.edu/loughranmcdonald-master-dictionary/) and [here](https://github.com/nunomroliveira/stock_market_lexicon)
 
 Live instances of the app can be found [Streamlit Cloud](https://nifty-500-stock-sentiment.streamlit.app/)
