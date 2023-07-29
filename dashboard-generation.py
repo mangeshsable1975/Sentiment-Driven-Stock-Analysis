@@ -122,7 +122,7 @@ with col_2:
     st.markdown(' ')
 
 st.markdown('''
-- [Developer Profile] (https://github.com/OsamaMustafa32)
+- [Developer Profile](https://github.com/OsamaMustafa32)
 - [Github repository](https://github.com/OsamaMustafa32/Sentiment-Driven-Stock-Analysis)
 ''')
 st.markdown('This is a treemap generated using python, plotly and streamlit.')
