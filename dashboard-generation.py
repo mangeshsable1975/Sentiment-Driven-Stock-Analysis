@@ -94,7 +94,7 @@ st.set_page_config(page_title = "{} Sentiment Analyzer".format(universe_string),
 st.header("{} stocks Sentiment Analyzer".format(universe_string))
 #st.subheader()
 
-st.markdown('This dashboard gives users a almost real-time comprehensive visual overview on the sentiments regarding various NIFTY indices.')
+st.markdown('The dashboard offers a near real-time, comprehensive visual overview of sentiments for various NIFTY indices.')
 
 # Update filters
 
@@ -102,7 +102,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
     date_interval = st.selectbox('Pick the Date Range', ('Past 7 days', 'Past 1 Month', 'Past 2 Months', 'Full'), key='date_filter')
 with col2:
-    universe_var = st.selectbox('Select Universe of Stocks', ('NIFTY_50', 'NIFTY_100', 'NIFTY_200', 'NIFTY_500'), key='universe_filter')
+    universe_var = st.selectbox('Select from NIFTY_ ', ('NIFTY_50', 'NIFTY_100', 'NIFTY_200', 'NIFTY_500'), key='universe_filter')
 with col3:
     st.empty()
 
