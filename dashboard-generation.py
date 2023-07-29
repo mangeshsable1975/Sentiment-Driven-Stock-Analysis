@@ -122,7 +122,8 @@ with col_2:
     st.markdown(' ')
 
 st.markdown('''
-- [github repo](https://github.com/OsamaMustafa32/Sentiment-Driven-Stock-Analysis)
+- [Developer Profile] (https://github.com/OsamaMustafa32)
+- [Github repository](https://github.com/OsamaMustafa32/Sentiment-Driven-Stock-Analysis)
 ''')
 st.markdown('This is a treemap generated using python, plotly and streamlit.')
-st.info('''This dashboard is updated everyday at 17:30 IST with sentiment analysis performed on latest scraped news headlines from the Ticker-Finology website.''')
+st.info('''Every 30 minutes, the dashboard is refreshed with the most current sentiment analysis outcomes based on the newly scraped news headlines from the Ticker-Finology website.''')
