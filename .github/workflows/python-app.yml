@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  refresh_page:
+  build:
 
     runs-on: ubuntu-latest
 
