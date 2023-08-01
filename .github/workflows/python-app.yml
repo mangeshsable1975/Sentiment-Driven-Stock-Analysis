@@ -38,7 +38,7 @@ jobs:
     - name: Execute python script to update sentiment page
       run: |
         cd main
-        python dashboard-generation.py- 
+        python dashboard-generation.py
     - name: save csv file
       run: |
         cd main
