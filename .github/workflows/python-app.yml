@@ -35,13 +35,3 @@ jobs:
     - name: fetch data
       run: |
         python fetch-data.py
-    - name: Execute python script to update sentiment page
-      run: |
-        python dashboard-generation.py
-    - name: save csv file
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add .
-        git commit -m 'upload csv,html using GH Actions'
-        git push --force origin main
